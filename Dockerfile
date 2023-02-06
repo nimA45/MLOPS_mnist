@@ -2,13 +2,14 @@ FROM python:3.8
 
 WORKDIR /app
 
-COPY . /app
+COPY requirements.txt .
 
 RUN pip install -r requirements.txt
 
-ENV FLASK_APP=app.py
-
+COPY . .
 
 EXPOSE 5000
 
-CMD ["flask", "run", "--host=0.0.0.0"]
+CMD ["python","my_app.py"]
+
+CMD ["python","test.py"]
