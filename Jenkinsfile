@@ -1,57 +1,29 @@
-pipeline{
-
-	agent any
-
-	environment {
-		DOCKERHUB_CREDENTIALS=credentials('dockerhubaccount')
-	}
-
-	stages {
-
-        stage('build from github') {
+pipeline {
+    agent {
+        docker {
+            image 'python:3.8'
+        }
+    }
+    stages {
+        stage('Clone repository') {
             steps {
-                echo 'fetch code'
-                echo 'build code'
+                git 'https://github.com/your-username/your-repository.git'
             }
         }
-        stage('test from github') {
+        stage('Build Docker image') {
             steps {
-                echo 'running test1'
-                echo 'running test2'
+                sh 'docker build -t your-image-name .'
             }
         }
-        
-		stage('Build') {
-
-			steps {
-				sh 'docker build -t nima45/jenkinstp .'
-			}
-		}
-        stage('Run Docker image') {
+        stage('Run tests') {
             steps {
-                sh 'docker run -d nima45/jenkinstp'
+                sh 'docker run your-image-name python -m unittest discover tests/'
             }
         }
-
-		stage('Login') {
-
-			steps {
-				sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
-			}
-		}
-
-		stage('Push') {
-
-			steps {
-				sh 'docker push nima45/jenkinstp'
-			}
-		}
-	}
-
-	post {
-		always {
-			sh 'docker logout'
-		}
-	}
-
+        stage('Deploy to local environment') {
+            steps {
+                sh 'docker run -p 5000:5000 your-image-name'
+            }
+        }
+    }
 }
