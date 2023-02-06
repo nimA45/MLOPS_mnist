@@ -5,19 +5,14 @@ pipeline {
         }
     }
     stages {
-        stage('Clone repository') {
-            steps {
-                git 'https://github.com/your-username/your-repository.git'
-            }
-        }
         stage('Build Docker image') {
             steps {
-                sh 'docker build -t your-image-name .'
+                sh 'docker build -t mlopsmnist .'
             }
         }
         stage('Run tests') {
             steps {
-                sh 'docker run your-image-name python -m unittest discover tests/'
+                sh 'docker run mlopsmnist python -m unittest discover tests/'
             }
         }
         stage('Deploy to local environment') {
