@@ -11,7 +11,7 @@ COPY . .
 ENV LISTEN_PORT=5000
 EXPOSE 5000
 
-ENTRYPOINT [ "python my_app.py" ]
-CMD ["python","test.py"]
+ENTRYPOINT [ "python" ]
+CMD ["my_app.py","test.py"]
 
 
