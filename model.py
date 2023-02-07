@@ -4,7 +4,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
 
 # Charger le csv train1
-train1 = pd.read_csv("random_forest_model.joblib")
+train1 = pd.read_csv("fashion-mnist-train-2.csv")
 
 # Séparer les features (X) et la cible (y)
 X = train1.drop("label", axis=1)
@@ -25,5 +25,5 @@ print("Accuracy on validation set: {:.2f}%".format(acc * 100))
 import joblib
 
 # Save the model to disk
-filename = 'random_forest_model.joblib'
+filename = 'random_forest_model2.joblib'
 joblib.dump(clf, filename)

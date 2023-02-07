@@ -6,7 +6,7 @@ import joblib
 
 app = Flask(__name__)
 
-model = joblib.load('random_forest_model.joblib')
+model = joblib.load('random_forest_model2.joblib')
 labels = ['T-shirt/top', 'Trouser', 'Pullover', 'Dress', 'Coat', 'Sandal', 'Shirt', 'Sneaker', 'Bag', 'Ankle boot']
 
 @app.route('/', methods=['GET', 'POST'])
