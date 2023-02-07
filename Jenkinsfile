@@ -9,12 +9,12 @@ pipeline {
         }
         stage('Run tests') {
             steps {
-                sh 'docker run mlopsmnist python -m unittest discover tests/'
+                sh 'docker run mlopsmnist python -m test.py'
             }
         }
         stage('Deploy to local environment') {
             steps {
-                sh 'docker run -p 5000:5000 your-image-name'
+                sh 'docker run -p 5000:5000 mlopsmnist'
             }
         }
     }
