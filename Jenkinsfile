@@ -1,16 +1,15 @@
 pipeline {
     agent any
     
-    stages {
-        stage('Build Docker image') {
+    stage('Build') {
+
+			steps {
+				sh 'docker build -t nima45/mnistmlops .'
+			}
+		}
+        stage('Run Docker image') {
             steps {
-                sh 'docker build -t mlopsmnist .'
+                sh 'docker run -d nima45/mnistmlops'
             }
         }
-        stage('run and test') {
-            steps {
-                sh 'docker run -p 5000:5000 mlopsmnist'
-            }
-        }
-    }
 }
