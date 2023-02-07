@@ -1,20 +1,15 @@
 pipeline {
-    agent {
-        docker {
-            image 'python:3.8'
-        }
-    }
+    agent any
+    
     stages {
-        stage('Build') {
+        stage('Build Docker image') {
             steps {
-                sh 'pip install flask'
+                sh 'docker build -t mlopsmnist .'
             }
         }
-        stage('Run and Test') {
+        stage('run and test') {
             steps {
-                sh 'python my_app.py &'
-                sh 'sleep 5'
-                sh 'python test.py'
+                sh 'docker run -p 5000:5000 mlopsmnist'
             }
         }
     }
