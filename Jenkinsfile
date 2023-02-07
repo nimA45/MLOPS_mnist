@@ -10,7 +10,7 @@ pipeline {
 		}
         stage('Run Docker image') {
             steps {
-                sh 'docker run -p 5000:5000 -d mnistmlops'
+                sh 'docker run -it --name mnistmlops --rm -p 5000:5000 mnistmlops'
             }
         }
     }
