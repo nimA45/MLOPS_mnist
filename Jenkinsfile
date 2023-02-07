@@ -1,7 +1,5 @@
 pipeline {
-    agent {
-        label 'python'
-    }
+    agent any
     
     stages {
         stage('Build') {
@@ -22,7 +20,7 @@ pipeline {
         }
         stage('Test') {
             steps {
-                sh 'python test.py'
+                sh 'test.py'
             }
         }
     }
