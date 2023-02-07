@@ -12,6 +12,6 @@ ENV LISTEN_PORT=5000
 EXPOSE 5000
 
 ENTRYPOINT [ "python" ]
-CMD ["my_app.py","test.py"]
+CMD ["my_app.py"]
 
 
