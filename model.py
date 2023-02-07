@@ -1,33 +1,29 @@
-import tensorflow as tf
-from tensorflow import keras
+import pandas as pd
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import accuracy_score
 
-# Load the Fashion MNIST dataset
-(x_train, y_train), (x_test, y_test) = keras.datasets.fashion_mnist.load_data()
+# Charger le csv train1
+train1 = pd.read_csv("random_forest_model.joblib")
 
-# Preprocess the data by scaling it to the range [0, 1]
-x_train = x_train / 255.0
-x_test = x_test / 255.0
+# Séparer les features (X) et la cible (y)
+X = train1.drop("label", axis=1)
+y = train1["label"]
 
+# Diviser les données en données d'entraînement et de validation
+X_train, X_val, y_train, y_val = train_test_split(X, y, test_size=0.2, random_state=42)
 
+# Entraîner un modèle de forêt aléatoire
+clf = RandomForestClassifier(n_estimators=100, random_state=42)
+clf.fit(X_train, y_train)
 
-# Build the model using a sequential architecture
-model = keras.Sequential([
-    keras.layers.Flatten(input_shape=(28, 28)),
-    keras.layers.Dense(128, activation='relu'),
-    keras.layers.Dense(10, activation='softmax')
-])
+# Évaluer le modèle sur les données de validation
+y_pred = clf.predict(X_val)
+acc = accuracy_score(y_val, y_pred)
+print("Accuracy on validation set: {:.2f}%".format(acc * 100))
 
-# Compile the model
-model.compile(optimizer='adam',
-              loss='sparse_categorical_crossentropy',
-              metrics=['accuracy'])
+import joblib
 
-# Train the model
-model.fit(x_train, y_train, epochs=10)
-
-
-
-# Evaluate the model on the test data
-test_loss, test_acc = model.evaluate(x_test, y_test)
-print('Test accuracy:', test_acc)
-model.save("fashion_mnist_model.h5")
+# Save the model to disk
+filename = 'random_forest_model.joblib'
+joblib.dump(clf, filename)
