@@ -13,6 +13,11 @@ pipeline {
                 sh 'docker run -p 5000:5000 -d mnistmlops'
             }
         }
+        stage('Activate conda') {
+            steps {
+                sh 'source /Users/nima/miniconda3/bin/activate tensorflow'
+            }
+        }
         stage('Test') {
             steps {
                 sh '/usr/bin/python3 test.py'
