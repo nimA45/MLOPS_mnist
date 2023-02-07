@@ -13,7 +13,12 @@ pipeline {
                 sh 'docker run -p 5000:5000 -d mnistmlops'
             }
         }
-        stage('Run test') {
+        stage('Install Python') {
+            steps {
+                sh 'apt-get update && apt-get install -y python'
+            }
+        }
+        stage('Test') {
             steps {
                 sh 'python test.py'
             }
