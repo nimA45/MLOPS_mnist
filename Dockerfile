@@ -12,4 +12,4 @@ EXPOSE 5000
 
 CMD ["python","my_app.py"]
 
-CMD ["python","test.py"]
+
