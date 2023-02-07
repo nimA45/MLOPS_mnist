@@ -1,5 +1,6 @@
 flask
-keras
 numpy
-tensorflow
+joblib
+pandas
+scikit-learn
 unittest2
