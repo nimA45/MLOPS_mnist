@@ -5,12 +5,12 @@ pipeline {
         stage('Build') {
 
 			steps {
-				sh 'docker build -t nima45/jenkinstp .'
+				sh 'docker build -t mnistmlops .'
 			}
 		}
         stage('Run Docker image') {
             steps {
-                sh 'docker run -d nima45/jenkinstp'
+                sh 'docker run -p 5000:5000 -d mnistmlops'
             }
         }
     }
